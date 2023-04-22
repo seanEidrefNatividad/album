@@ -72,10 +72,25 @@ body {
     flex-direction: column;
     padding-left: 1rem;
 }
+#sidebar_div1 > div:first-child {
+    margin-bottom: 4rem;
+}
 #sidebar_div1 > div {
-    margin-bottom: 2.5rem;
+    margin-bottom: 3rem;
 }
 
+#sidebarNav > ul > li {
+    margin-bottom: 1rem;
+}
+#sidebarNav > ul > ul > li {
+    margin-left: 2rem;
+    margin-bottom: .25rem;
+
+}
+a {
+    text-decoration:none;
+    color: inherit;
+}
 
 /* album */
 
@@ -139,4 +154,34 @@ h1 {
     max-height: 225px; 
     max-width: 100%; 
     display: block;
+}
+
+.navBtn:hover, .navBtn2:hover, .navBtn4:hover {
+    background-color: lightblue;
+}
+
+.navBtn1:hover {
+    cursor: default;
+}
+
+.navBtn, .navBtn1, .navBtn2, .navBtn4 {
+    background-color: #E3E3E3;
+    width: 100%;
+    height: 2.8rem;
+    border: none;
+    border-radius: 1.5rem;
+    text-align: start;
+    padding-left: 1rem;
+    color: inherit;
+}
+
+.navBtn4 {
+    position: absolute;
+    right: 1rem;
+    width: 120px;
+}
+
+.navBtn2 {
+    height: 2rem;
+    border-radius: 1.5rem;
 }

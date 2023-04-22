@@ -104,10 +104,22 @@ require_once 'template/image_show.php';
             ?>
             
         </div>
-        <div>
-            Album
+        <div id="sidebarNav">
             <ul>
-                <li>sample</li>
+                <li><button class="navBtn"><a href="index.php"><i class="fa-solid fa-house"></i>&nbsp;Home</a></button></li>
+                <li><button class="navBtn1"><i class="fa-solid fa-images"></i>&nbsp;Albums</button></li>
+                <ul>
+                    <?php 
+                        $result = albumShow_Model($conn, $_SESSION["id"]);
+                        if ($result){
+                            while($row = mysqli_fetch_assoc($result)) {
+                                echo '
+                                    <li><a href="index.php?album='.$row["id"].'"><button class="navBtn2">'.$row["title"].'</button></a></li>                                                                      
+                                ';
+                            }
+                        }           
+                    ?>
+                </ul>
             </ul>
         </div>  
     </div>
@@ -115,11 +127,13 @@ require_once 'template/image_show.php';
         <hr>
             <?php           
                 echo '
-                    <li>
+                    <button class="navBtn">
                         <a href="../controller/logout.php" type="button">
+                            <i class="fa-solid fa-right-from-bracket"></i>
+                            &nbsp;
                             Logout
                         </a>
-                    </li>
+                    </button>
                 ';          
             ?>
     </div>
@@ -127,21 +141,33 @@ require_once 'template/image_show.php';
 
 <div id="main">
 
-    <div id="navbar" style="text-align: end;">
+    <div id="navbar">
         <?php           
             echo '
-                <li>
+                <button class="navBtn4">
                     <a href="../controller/logout.php" type="button">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                        &nbsp;
                         Logout
                     </a>
-                </li>
+                </button>
             ';          
         ?>
     </div>
 
     <div id="album_main">
         <div id="album">
-            Album
+            <?php
+            if(isset($_GET["album"])) { 
+                echo '
+                    <h2 style="font-size: 1.5rem; margin: 1.5rem;">Images</h2>
+                ';
+            } else {
+                echo '
+                    <h2 style="font-size: 1.5rem; margin: 1.5rem;">Albums</h2>
+                ';
+            }
+            ?>
             <div id="album_div1">
 
                 <div class="container">
