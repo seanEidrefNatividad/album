@@ -52,7 +52,14 @@ function albumShow($conn, $userId) {
                                     <a href="../view/index.php?album='.$row["id"].'">
                                         <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
                                     </a>
-                                    <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                                    <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#modal_editAlbum'.$row["id"].'">Edit</button>
+
+                                    <form action="../controller/delete_album.php" method="post" id="delete_album'.$row["id"].'" hidden>
+                                        <input class="login_tb" type="number" name="albumId" value="'.$row["id"].'" hidden>
+                                    </form>
+
+                                    <button type="submit" name="submit" form="delete_album'.$row["id"].'" class="btn btn-sm btn-outline-danger"><i class="fa-solid fa-trash-can"></i>Delete</button>
+
                                 </div>
                                 <!-- <small class="text-muted">9 mins</small> -->
                             </div>
@@ -60,8 +67,40 @@ function albumShow($conn, $userId) {
                     </div>
                 </div>
             ';
+
+            echo '
+            <!-- Modal -->
+            <div class="modal fade" id="modal_editAlbum'.$row["id"].'" data-bs-backdrop="static" tabindex="-1" aria-labelledby="modal_editAlbumLabel'.$row["id"].'" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                    <div class="modal-content">
+
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="modal_editAlbumLabel'.$row["id"].'">Edit Album</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    
+                    <div class="modal-body"> 
+                        <form action="../controller/edit_album.php" method="post" id="edit_album'.$row["id"].'">
+                            <div class="login_div2">
+                                <input class="login_tb" type="number" name="userId" value="'.$row["id"].'" hidden>
+                                <input class="login_tb" type="text" id="album_title" name="album_title" value="'.$row["title"].'" placeholder="Title" autocomplete="off">
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Discard</button>
+                        <button type="submit" form="edit_album'.$row["id"].'" class="btn btn-success" name="submit">Update</button>
+                    </div>
+
+                    </div>
+                </div>
+            </div>
+        ';
+
         }
     } 
+    return $result;
 };
 
 ?>

@@ -10,7 +10,7 @@ function imageShow($conn, $userId, $albumId) {
                     <div class="card mb-4 box-shadow">
                          
                         <div class="imageDiv card-img-top">                      
-                            <img class="images"
+                            <img data-enlargable class="images"
                             data-src="holder.js/100px225?theme=thumb&amp;bg=55595c&amp;fg=eceeef&amp;text=Thumbnail"
                             alt="Thumbnail [100%x225]"
                             src="../assets/img/'.$row["name"].'"
@@ -21,12 +21,54 @@ function imageShow($conn, $userId, $albumId) {
                             <h5 class="card-title">'.$row["title"].'</h5>
                             <p class="card-text">'.$row["description"].'</p>
                             <div class="d-flex justify-content-between align-items-center">
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                                    <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                                <div class="btn-group mt-2">
+                                    <!-- <button type="button" class="btn btn-sm btn-outline-secondary">View</button> -->
+                                    <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#modal_editImage'.$row["id"].'">Edit</button>
+                                    
+                                    <form action="../controller/delete_image.php" method="post" id="delete_image'.$row["id"].'" hidden>
+                                        <input class="login_tb" type="number" name="imgId" value="'.$row["id"].'" hidden>
+                                        <input class="login_tb" type="number" name="albumId" value="'.$albumId.'" hidden>
+                                    </form>
+
+                                    <button type="submit" name="submit" form="delete_image'.$row["id"].'" class="btn btn-sm btn-outline-danger"><i class="fa-solid fa-trash-can"></i>Delete</button>
+
                                 </div>
                                 <!-- <small class="text-muted">9 mins</small> -->
                             </div>
+                        </div>
+                    </div>
+                </div>
+            ';
+
+            echo '
+                <!-- Modal -->
+                <div class="modal fade" id="modal_editImage'.$row["id"].'" data-bs-backdrop="static" tabindex="-1" aria-labelledby="modal_editImageLabel'.$row["id"].'" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                        <div class="modal-content">
+
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="modal_editImageLabel'.$row["id"].'">Edit Image</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        
+                        <div class="modal-body"> 
+                            <form action="../controller/edit_image.php" method="post" id="edit_image'.$row["id"].'">
+                                <div class="login_div2">
+                                    <input class="login_tb" type="number" name="imgId" value="'.$row["id"].'" hidden>
+                                    <input class="login_tb" type="number" name="albumId" value="'.$albumId.'" hidden>
+                                    <!-- <input class="login_tb" type="text" name="imgName" value="'.$row["name"].'" placeholder="image name"> -->
+                                    <input class="login_tb" type="text" name="imgTitle" value="'.$row["title"].'" placeholder="image title">
+                                    <input class="login_tb" type="text" name="imgDesc" value="'.$row["description"].'" placeholder="image description">
+                                    <!-- <input type="file" name="img"> -->
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Discard</button>
+                            <button type="submit" form="edit_image'.$row["id"].'" class="btn btn-success" name="submit">Update</button>
+                        </div>
+
                         </div>
                     </div>
                 </div>

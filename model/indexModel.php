@@ -17,6 +17,77 @@ function addImage($conn, $albumId, $userId, $imgTitle, $imgDesc, $imgFullName) {
 
     return $result;
 }
+function editImage($conn, $albumId, $id, $imgTitle, $imgDesc) {
+    $sql = "UPDATE `image` SET title = ?, description = ? WHERE id = ?;";
+    $stmt = mysqli_stmt_init($conn);
+
+    if (!mysqli_stmt_prepare($stmt, $sql)) {
+        header("location: ../view/index.php?album=".$albumId."&error=stmtfailed");
+        exit();
+    }
+
+    mysqli_stmt_bind_param($stmt, "ssi", $imgTitle, $imgDesc, $id);
+    mysqli_stmt_execute($stmt);
+
+    $result = mysqli_stmt_get_result($stmt);
+    mysqli_stmt_close($stmt);
+
+    return $result;
+}
+
+function editAlbum($conn, $id, $albumTitle) {
+    $sql = "UPDATE `album` SET title = ? WHERE id = ?;";
+    $stmt = mysqli_stmt_init($conn);
+
+    if (!mysqli_stmt_prepare($stmt, $sql)) {
+        header("location: ../view/index.php?error=stmtfailed");
+        exit();
+    }
+
+    mysqli_stmt_bind_param($stmt, "si", $albumTitle, $id);
+    mysqli_stmt_execute($stmt);
+
+    $result = mysqli_stmt_get_result($stmt);
+    mysqli_stmt_close($stmt);
+
+    return $result;
+}
+
+function deleteImage($conn, $albumId, $id) {
+    $sql = "DELETE FROM `image` WHERE id = ?;";
+    $stmt = mysqli_stmt_init($conn);
+
+    if (!mysqli_stmt_prepare($stmt, $sql)) {
+        header("location: ../view/index.php?album=".$albumId."&error=stmtfailed");
+        exit();
+    }
+
+    mysqli_stmt_bind_param($stmt, "i", $id);
+    mysqli_stmt_execute($stmt);
+
+    $result = mysqli_stmt_get_result($stmt);
+    mysqli_stmt_close($stmt);
+
+    return $result;
+}
+
+function deleteAlbum($conn, $albumId) {
+    $sql = "DELETE FROM `album` WHERE id = ?;";
+    $stmt = mysqli_stmt_init($conn);
+
+    if (!mysqli_stmt_prepare($stmt, $sql)) {
+        header("location: ../view/index.php?error=stmtfailed");
+        exit();
+    }
+
+    mysqli_stmt_bind_param($stmt, "i", $albumId);
+    mysqli_stmt_execute($stmt);
+
+    $result = mysqli_stmt_get_result($stmt);
+    mysqli_stmt_close($stmt);
+
+    return $result;
+}
 
 function imageCount($conn, $albumId, $userId) {
     $sql = "SELECT * FROM `image` WHERE `albumId` = ? && `userId` = ?;";

@@ -13,4 +13,14 @@
     
     <?php include 'template/register_validate.php';?>
 
+    <div style="text-align: center; margin-top: 4rem;">
+        <button class="navBtn" style="width: 150px;">
+            <a href="login.php" type="button">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                &nbsp;
+                Log In
+            </a>
+        </button>
+    </div>
+
 <?php include 'template/footer.php';?>

@@ -15,7 +15,7 @@ require_once 'template/image_show.php';
 ?>
 
 
-<!-- Modal -->
+<!-- Modal Create Album-->
 <div class="modal fade" id="modal_createAlbum" data-bs-backdrop="static" tabindex="-1" aria-labelledby="modal_createAlbumLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
     <div class="modal-content">
@@ -43,7 +43,7 @@ require_once 'template/image_show.php';
   </div>
 </div>
 
-<!-- Modal Add Image ?btn-->
+<!-- Modal Add Image -->
 <div class="modal fade" id="modal_addImage" data-bs-backdrop="static" tabindex="-1" aria-labelledby="modal_addImageLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
     <div class="modal-content">
@@ -74,7 +74,6 @@ require_once 'template/image_show.php';
     </div>
   </div>
 </div>
-
 
 
 <div id="sidebar">
@@ -139,9 +138,12 @@ require_once 'template/image_show.php';
     </div>
 </div>
 
-<div id="main">
+<div id="main">                 
 
     <div id="navbar">
+        <div style="margin: auto 0;">
+            Hello, <?php echo $_SESSION["username"] ?>!
+        </div>
         <?php           
             echo '
                 <button class="navBtn4">
@@ -187,13 +189,12 @@ require_once 'template/image_show.php';
                             }
                             
                         } else {
-                            albumShow($conn, $_SESSION["id"]);                                                                                     
+                           albumShow($conn, $_SESSION["id"]);                                                                                                                               
                         }
                         ?>
                                      
                     </div>
                 </div>
-
 
             </div>
         </div>
@@ -202,5 +203,24 @@ require_once 'template/image_show.php';
 
 
 </div>
+
+<script>
+
+$('img[data-enlargable]').addClass('img-enlargable').click(function(){
+    var src = $(this).attr('src');
+    $('<div>').css({
+        background: 'RGBA(0,0,0,.5) url('+src+') no-repeat center',
+        backgroundSize: 'contain',
+        width:'100%', height:'100%',
+        position:'fixed',
+        zIndex:'10000',
+        top:'0', left:'0',
+        cursor: 'zoom-out'
+    }).click(function(){
+        $(this).remove();
+    }).appendTo('body');
+});
+
+</script>
 
 <?php include 'template/footer.php'; ?>
