@@ -72,6 +72,26 @@ function imageShow_Model($conn, $userId, $albumId) {
 
     return $result;
 }
+function imageShowOne_Model($conn, $userId, $albumId) {
+    $sql = "SELECT * FROM `image` WHERE `userId` = ? && `albumId` = ? LIMIT 1";
+    $stmt = mysqli_stmt_init($conn);
+
+    if (!mysqli_stmt_prepare($stmt, $sql)) {
+        header("location: ../view/index.php?error=stmtfailed");
+        exit();
+    }
+
+    mysqli_stmt_bind_param($stmt, "ii", $userId, $albumId);
+    mysqli_stmt_execute($stmt);
+
+    $result = mysqli_stmt_get_result($stmt);
+    $row = $result->fetch_assoc();
+    mysqli_stmt_close($stmt);
+
+    
+
+    return $row;
+}
 
 function albumTaken_Model($conn, $album_title, $userId) {
     $sql = "SELECT * FROM `album` WHERE `title` = ? && `userId` = ?;";

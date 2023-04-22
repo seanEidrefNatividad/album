@@ -156,7 +156,7 @@ require_once 'template/image_show.php';
                                 imageShow($conn, $_SESSION["id"], $_GET["album"]);
                             } else {
                                 echo '
-                                    <h3>Empty Album'.$rowCount.'</h3>
+                                    <h3>Empty Album</h3>
                                 ';
                             }
                             

@@ -15,9 +15,7 @@ function imageShow($conn, $userId, $albumId) {
                             alt="Thumbnail [100%x225]"
                             src="../assets/img/'.$row["name"].'"
                             data-holder-rendered="true">                         
-                        </div>
-                        
-                         
+                        </div>                                           
 
                         <div class="card-body">
                             <h5 class="card-title">'.$row["title"].'</h5>
